@@ -1,0 +1,14 @@
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\bin\Debug\net8.0\Bunbarlang.exe
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\bin\Debug\net8.0\Bunbarlang.deps.json
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\bin\Debug\net8.0\Bunbarlang.runtimeconfig.json
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\bin\Debug\net8.0\Bunbarlang.dll
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\bin\Debug\net8.0\Bunbarlang.pdb
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.AssemblyInfoInputs.cache
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.AssemblyInfo.cs
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.csproj.CoreCompileInputs.cache
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.dll
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\refint\Bunbarlang.dll
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.pdb
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\Bunbarlang.genruntimeconfig.cache
+C:\Users\Szabolcs\source\repos\Bunbarlang\Bunbarlang\obj\Debug\net8.0\ref\Bunbarlang.dll
