@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Bunbarlang
 {
@@ -24,7 +21,7 @@ namespace Bunbarlang
             int delayMs = 80
         )
         {
-            int targetIndex = Array.IndexOf(Wheel,Convert.ToString(forcedResult));
+            int targetIndex = Array.IndexOf(Wheel, Convert.ToString(forcedResult));
             if (targetIndex == -1)
                 throw new ArgumentException("Invalid roulette number.");
 
@@ -48,7 +45,6 @@ namespace Bunbarlang
                     Thread.Sleep(delayMs);
             }
 
-            // Final guaranteed landing frame
             Console.Clear();
             DrawFrame(targetIndex);
 
@@ -73,6 +69,4 @@ namespace Bunbarlang
             Console.WriteLine("\n======================");
         }
     }
-
-
 }

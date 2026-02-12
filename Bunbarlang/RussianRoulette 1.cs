@@ -1,10 +1,18 @@
-﻿namespace Bunbarlang
+﻿using System;
+using System.Threading;
+
+namespace Bunbarlang
 {
-    static class RussianRoulette
-    {
-        public static void Game()
-        {
-			Console.WriteLine("You wake up in a dark room, sitting at a table. A revolvers barrel points at you drom the middle of the table");
+	public class RussianRoulette : IGame
+	{
+		public string Name => "Russian Roulette";
+		public bool IsCompleted { get; private set; }
+
+		public void Play(Player player)
+		{
+			IsCompleted = false;
+
+			Console.WriteLine("You wake up in a dark room, sitting at a table. A revolver's barrel points at you from the middle of the table");
 			Console.Write("...");
 			Console.ReadKey();
 			Console.Clear();
@@ -17,11 +25,12 @@
 			Console.CursorVisible = false;
 
 			int round = 1;
+			var rnd = new Random();
+
 			do
 			{
-				Random rnd = new Random();
 				chamberDisplay(round);
-				int chamber = rnd.Next(1, 6);
+				int chamber = rnd.Next(1, 7); // 1..6 inclusive
 				Console.WriteLine("     ___    \n" +
 				  "==  /   \\   \n" +
 				  "    \\___/    \n" +
@@ -29,7 +38,8 @@
 				Thread.Sleep(1000);
 				Console.Clear();
 				shootingAnimation();
-				if (chamber <=round)
+
+				if (chamber <= round)
 				{
 					Console.WriteLine("The chamber wasn't empty this time. You died.");
 					Console.ReadKey();
@@ -48,22 +58,24 @@
 				}
 				round++;
 			}
-			while (round<=5);
+			while (round <= 5);
+
 			Console.ForegroundColor = ConsoleColor.DarkRed;
 			Console.WriteLine("You lucky bastard! Looks like I have to take care of you myself...");
 			Console.ResetColor();
-			Console.CursorVisible=true;
+			Console.CursorVisible = true;
 			Console.WriteLine("...");
 			Console.ReadKey();
 			Console.Clear();
 			Thread.Sleep(1000);
 			shootingAnimation();
 			Thread.Sleep(1000);
-			Console.WriteLine("You got killed by the owner of the Den of Sin.");
+			Console.WriteLine("You got killed by the owner of the Den of Sin. Your earnings got stolen.");
+			IsCompleted = true;
 		}
+
 		private static void shootingAnimation()
 		{
-
 			Console.BackgroundColor = ConsoleColor.White;
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaa\n" +
@@ -73,13 +85,12 @@
 			Console.ResetColor();
 			Thread.Sleep(1000);
 			Console.Clear();
-
 		}
+
 		private static void chamberDisplay(int round)
 		{
 			switch (round)
 			{
-
 				case 1:
 					Console.WriteLine(" /  0  \\\n" +
 									  "|O     O|\n" +
@@ -111,12 +122,13 @@
 									  " \\  0  /\n");
 					break;
 			}
-			if (round==1)
+
+			if (round == 1)
 			{
 				Console.WriteLine("Press any button to proceed...");
 			}
 			Console.ReadKey();
 			Console.Clear();
 		}
-    }
+	}
 }

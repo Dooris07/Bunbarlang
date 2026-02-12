@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bunbarlang")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46588cf6db5f7f63e809a49e5ab58d4a4b7e618b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6d574d773ee0837e4a667211b69f4eeeadb0034")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bunbarlang")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bunbarlang")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
