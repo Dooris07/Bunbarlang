@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Szabolcs\\source\\repos\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj": {}
+    "C:\\Users\\gmezo\\source\\repos\\Dooris07\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Szabolcs\\source\\repos\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj": {
+    "C:\\Users\\gmezo\\source\\repos\\Dooris07\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Szabolcs\\source\\repos\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj",
+        "projectUniqueName": "C:\\Users\\gmezo\\source\\repos\\Dooris07\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj",
         "projectName": "Bunbarlang",
-        "projectPath": "C:\\Users\\Szabolcs\\source\\repos\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj",
-        "packagesPath": "C:\\Users\\Szabolcs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Szabolcs\\source\\repos\\Bunbarlang\\Bunbarlang\\obj\\",
+        "projectPath": "C:\\Users\\gmezo\\source\\repos\\Dooris07\\Bunbarlang\\Bunbarlang\\Bunbarlang.csproj",
+        "packagesPath": "C:\\Users\\gmezo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gmezo\\source\\repos\\Dooris07\\Bunbarlang\\Bunbarlang\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Szabolcs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gmezo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
