@@ -233,7 +233,7 @@ namespace Bunbarlang
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("You have no more credits...");
+                    Console.WriteLine("You have no more credits or dignity...");
                     Console.ResetColor();
                     Console.ReadKey(true);
                     break;
@@ -259,7 +259,7 @@ namespace Bunbarlang
             }
 
             Console.Clear();
-            Console.WriteLine("The Den of Sin fades into darkness...");
+            Console.WriteLine("You fade with the Den of Sin...");
             Console.ReadKey(true);
         }
     }
