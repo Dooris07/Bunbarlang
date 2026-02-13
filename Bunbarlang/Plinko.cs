@@ -17,7 +17,7 @@ namespace Bunbarlang
 
 		private readonly double[] multipliers =
 		{
-			10, 5, 2, 1, 0.5, 0.2, 0.5, 1, 2, 5, 10
+			0.2, 0.5, 1, 2, 5, 10, 5, 2, 1, 0.5, 0.2
         };
 
 		private readonly Random random = new Random();
