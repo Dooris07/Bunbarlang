@@ -179,7 +179,6 @@ namespace Bunbarlang
 					bet = -1;
 			}
 			while (bet < 1 || bet > player.Chips);
-			// withdraw stake immediately (net results will be applied as adjustments)
 			player.RemoveChips(bet);
 			return bet;
 		}
@@ -194,12 +193,11 @@ namespace Bunbarlang
 			int net;
 			if (spin == choice)
 			{
-				// standard payout: 35:1 net (i.e., you receive 35x bet profit)
 				net = bet * 35;
 			}
 			else
 			{
-				net = -0; // stake already removed, no payout
+				net = -0;
 			}
 
 			Console.WriteLine($"{colors[rouletteWheel[spin]]} {spin}");
@@ -218,7 +216,7 @@ namespace Bunbarlang
 					   || (choice == 2 && spin >= 13 && spin <= 24)
 					   || (choice == 3 && spin >= 25 && spin <= 36);
 
-			int net = win ? bet * 2 : 0; // stake already removed; on win return stake + equal profit
+			int net = win ? bet * 2 : 0; 
 			Console.WriteLine($"{colors[rouletteWheel[spin]]} {spin}");
 			Console.ReadKey();
 			return net;
@@ -248,7 +246,7 @@ namespace Bunbarlang
 			RouletteUI.DrawWheel(true, spin);
 
 			int net = 0;
-			if (rouletteWheel[spin] == 0) // zero
+			if (rouletteWheel[spin] == 0) 
 			{
 				Console.WriteLine($"Green {spin}");
 				if (choice == 0)

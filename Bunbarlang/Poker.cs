@@ -195,7 +195,6 @@ namespace Bunbarlang
                         chosen = true;
                         break;
                     case ConsoleKey.Escape:
-                        // New: request abort to return to main menu
                         abortRequested = true;
                         return;
                     default:
@@ -245,7 +244,7 @@ namespace Bunbarlang
             }
             else
             {
-                if (rng.Next(100) < 35)
+                if (rng.Next(100) < 20)
                     dealerFolded = true;
                 else
                     Bet(ref dealerChips, ref dealerBet, callAmount);

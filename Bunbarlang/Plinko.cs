@@ -17,72 +17,96 @@ namespace Bunbarlang
 
 		private readonly double[] multipliers =
 		{
-			0.25, 0.50, 1.25, 1.50, 2.0, 3.0, 2.0, 1.5, 1.25, 0.5, 0.25
-		};
+			10, 5, 2, 1, 0.5, 0.2, 0.5, 1, 2, 5, 10
+        };
 
 		private readonly Random random = new Random();
 
 		public void Play(Player player)
 		{
 			IsCompleted = false;
-			Console.Clear();
-			Console.CursorVisible = true;
 
-			Console.WriteLine("=== BÛNBARLANG – PLINKO ===");
-			Console.WriteLine($"Chips: {player.Chips}\n");
-			Console.Write("Enter bet: ");
-
-			if (!int.TryParse(Console.ReadLine(), out int bet) || bet <= 0)
-			{
-				Console.CursorVisible = false;
-				return;
-			}
-
-			if (!player.RemoveChips(bet))
-			{
-				Console.WriteLine("Not enough chips.");
-				Thread.Sleep(1000);
-				Console.CursorVisible = false;
-				return;
-			}
-
-			Console.CursorVisible = false;
-
-			int slot = multipliers.Length / 2;
-			int ballRow;
-
-			for (ballRow = -1; ballRow < Rows; ballRow++)
+			while (true)
 			{
 				Console.Clear();
-				DrawBoard(ballRow, slot);
-				Thread.Sleep(200);
+				Console.CursorVisible = true;
 
-				if (ballRow >= 0 && ballRow < Rows - 1)
+				Console.WriteLine("=== BÛNBARLANG – PLINKO ===");
+				Console.WriteLine($"Chips: {player.Chips}\n");
+				Console.Write("Enter bet: ");
+
+				string? input = Console.ReadLine();
+				if (string.IsNullOrWhiteSpace(input) || !int.TryParse(input, out int bet) || bet <= 0)
 				{
-					if (slot == 0) slot++;
-					else if (slot == multipliers.Length - 1) slot--;
-					else slot += random.Next(2) == 0 ? -1 : 1;
+					Console.CursorVisible = false;
+					Console.WriteLine("\nInvalid bet.");
+					Console.WriteLine("Press ESC to exit or any other key to try again...");
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					{
+						IsCompleted = true;
+						Console.CursorVisible = true;
+						return;
+					}
+					continue;
 				}
+
+				if (!player.RemoveChips(bet))
+				{
+					Console.WriteLine("Not enough chips.");
+					Thread.Sleep(1000);
+					Console.CursorVisible = false;
+					Console.WriteLine("\nPress ESC to exit or any other key to try again...");
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					{
+						IsCompleted = true;
+						Console.CursorVisible = true;
+						return;
+					}
+					continue;
+				}
+
+				Console.CursorVisible = false;
+
+				int slot = multipliers.Length / 2;
+				int ballRow;
+
+				for (ballRow = -1; ballRow < Rows; ballRow++)
+				{
+					Console.Clear();
+					DrawBoard(ballRow, slot);
+					Thread.Sleep(200);
+
+					if (ballRow >= 0 && ballRow < Rows - 1)
+					{
+						if (slot == 0) slot++;
+						else if (slot == multipliers.Length - 1) slot--;
+						else slot += random.Next(2) == 0 ? -1 : 1;
+					}
+				}
+
+				double multiplier = multipliers[slot];
+				int win = (int)(bet * multiplier);
+
+				Console.Clear();
+				DrawBoard(Rows - 1, slot);
+
+				Console.SetCursorPosition(0, Rows + 3);
+				Console.WriteLine($"Multiplier: {multiplier}");
+				Console.WriteLine($"Winnings: {win}");
+
+				player.AddChips(win);
+
+				Console.WriteLine($"New chips: {player.Chips}");
+				Console.WriteLine("\nPress ESC to exit or any other key to play again...");
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				{
+					IsCompleted = true;
+					Console.CursorVisible = true;
+					return;
+				}
+
+				Console.CursorVisible = true;
 			}
-
-			double multiplier = multipliers[slot];
-			int win = (int)(bet * multiplier);
-
-			Console.Clear();
-			DrawBoard(Rows - 1, slot);
-
-			Console.SetCursorPosition(0, Rows + 3);
-			Console.WriteLine($"Multiplier: {multiplier}");
-			Console.WriteLine($"Winnings: {win}");
-
-			player.AddChips(win);
-
-			Console.WriteLine($"New chips: {player.Chips}");
-			Console.WriteLine("\nPress any key to continue...");
-			Console.ReadKey(true);
-
-			IsCompleted = true;
-			Console.CursorVisible = true;
 		}
 
 		private void DrawBoard(int ballRow, int ballSlot)

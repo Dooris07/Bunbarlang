@@ -230,7 +230,7 @@ public static class TexasHoldemEvaluator
                 return true;
         }
 
-        // Ace-low straight
+        // Ász kis sor check
         if (distinct.Contains(14) &&
             distinct.Contains(2) &&
             distinct.Contains(3) &&

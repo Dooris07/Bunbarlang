@@ -11,92 +11,127 @@ namespace Bunbarlang
 
         public void Play(Player player)
         {
-            Console.Clear();
-            Console.WriteLine("===== BLACKJACK =====");
-            Console.WriteLine($"Chips: {player.Chips:N0}");
+            if (player is null) throw new ArgumentNullException(nameof(player));
 
-            Console.Write("Enter bet: ");
-            if (!int.TryParse(Console.ReadLine(), out int bet) || bet <= 0)
+            IsCompleted = false;
+            Console.CursorVisible = false;
+
+            while (true)
             {
-                Console.WriteLine("Invalid bet.");
-                Console.ReadKey();
-                return;
-            }
+                Console.Clear();
+                Console.WriteLine("===== BLACKJACK =====");
+                Console.WriteLine($"Chips: {player.Chips:N0}");
+                Console.WriteLine();
 
-            if (!player.RemoveChips(bet))
-            {
-                Console.WriteLine("Not enough chips!");
-                Console.ReadKey();
-                return;
-            }
+                Console.Write("Enter bet: ");
+                string? betInput = Console.ReadLine();
 
-            Deck deck = new Deck();
-            deck.Shuffle();
-
-            BlackjackHand playerHand = new BlackjackHand();
-            BlackjackHand dealerHand = new BlackjackHand();
-
-            playerHand.AddCard(deck.Draw());
-            playerHand.AddCard(deck.Draw());
-
-            dealerHand.AddCard(deck.Draw());
-            dealerHand.AddCard(deck.Draw());
-
-            bool playerTurn = true;
-            bool revealDealer = false;
-
-            // ===== PLAYER TURN =====
-            while (playerTurn)
-            {
-                Render(player, bet, playerHand, dealerHand, revealDealer);
-
-                if (playerHand.IsBust)
+                if (string.IsNullOrWhiteSpace(betInput) || !int.TryParse(betInput, out int bet) || bet <= 0)
                 {
-                    Console.WriteLine("\n💥 Bust!");
-                    break;
+                    Console.WriteLine("Invalid bet.");
+                    Console.WriteLine("Press ESC to exit or any other key to try again...");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    {
+                        IsCompleted = true;
+                        Console.CursorVisible = true;
+                        return;
+                    }
+                    continue;
                 }
 
-                Console.Write("\n(H)it or (S)tand: ");
-                string input = Console.ReadLine()?.ToLower();
-
-                if (input == "h")
+                if (!player.RemoveChips(bet))
                 {
-                    playerHand.AddCard(deck.Draw());
+                    Console.WriteLine("Not enough chips!");
+                    Console.WriteLine("Press ESC to exit or any other key to try again...");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    {
+                        IsCompleted = true;
+                        Console.CursorVisible = true;
+                        return;
+                    }
+                    continue;
                 }
-                else if (input == "s")
-                {
-                    playerTurn = false;
-                }
-            }
 
-            // ===== DEALER TURN =====
-            revealDealer = true;
+                // Setup round
+                var deck = new Deck();
+                deck.Shuffle();
 
-            while (!playerHand.IsBust && dealerShouldHit(dealerHand))
-            {
-                Render(player, bet, playerHand, dealerHand, revealDealer);
-                System.Threading.Thread.Sleep(800);
+                var playerHand = new BlackjackHand();
+                var dealerHand = new BlackjackHand();
+
+                playerHand.AddCard(deck.Draw());
+                playerHand.AddCard(deck.Draw());
+
                 dealerHand.AddCard(deck.Draw());
+                dealerHand.AddCard(deck.Draw());
+
+                bool playerTurn = true;
+                bool revealDealer = false;
+
+                // ===== PLAYER TURN =====
+                while (playerTurn)
+                {
+                    Render(player, bet, playerHand, dealerHand, revealDealer);
+
+                    if (playerHand.IsBust)
+                    {
+                        Console.WriteLine("\n💥 Bust!");
+                        break;
+                    }
+
+                    Console.Write("\n(H)it or (S)tand: ");
+                    string? input = Console.ReadLine()?.Trim().ToLowerInvariant();
+
+                    if (input == "h")
+                    {
+                        playerHand.AddCard(deck.Draw());
+                    }
+                    else if (input == "s")
+                    {
+                        playerTurn = false;
+                    }
+                }
+
+                // ===== DEALER TURN =====
+                revealDealer = true;
+
+                while (!playerHand.IsBust && dealerShouldHit(dealerHand))
+                {
+                    Render(player, bet, playerHand, dealerHand, revealDealer);
+                    System.Threading.Thread.Sleep(800);
+                    dealerHand.AddCard(deck.Draw());
+                }
+
+                Render(player, bet, playerHand, dealerHand, revealDealer);
+
+                // ===== RESULT =====
+                Resolve(player, bet, playerHand, dealerHand);
+
+                if (player.Chips <= 0)
+                {
+                    Console.WriteLine("\nYou're out of chips. Press any key to return to lobby...");
+                    Console.ReadKey(true);
+                    IsCompleted = true;
+                    Console.CursorVisible = true;
+                    return;
+                }
+
+                Console.WriteLine("\nPress ESC to exit or any other key to play again...");
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                {
+                    IsCompleted = true;
+                    Console.CursorVisible = true;
+                    return;
+                }
             }
-
-            Render(player, bet, playerHand, dealerHand, revealDealer);
-
-            // ===== RESULT =====
-            Resolve(player, bet, playerHand, dealerHand);
-
-            IsCompleted = true;
-            Console.ReadKey();
         }
 
         private bool dealerShouldHit(BlackjackHand hand)
         {
             int value = hand.GetValue();
 
-            // Dealer stands on soft 17
-            if (value < 17)
-                return true;
-
-            return false;
+            // Dealer stands on soft 17 (simplified)
+            return value < 17;
         }
 
         private void Resolve(Player player, int bet,
@@ -121,11 +156,11 @@ namespace Bunbarlang
             int playerValue = playerHand.GetValue();
             int dealerValue = dealerHand.GetValue();
 
-            // Natural Blackjack
+            // Natural Blackjack (3:2)
             if (playerValue == 21 && playerHand.Cards.Count == 2)
             {
                 Console.WriteLine("BLACKJACK! 🃏");
-                player.AddChips((int)(bet * 2.5)); // 3:2 payout
+                player.AddChips((int)(bet * 2.5));
                 return;
             }
 
@@ -166,7 +201,8 @@ namespace Bunbarlang
 
             if (!revealDealer)
             {
-                RenderCards(new List<Card> { dealerHand.Cards[0] });
+                if (dealerHand.Cards.Count > 0)
+                    RenderCards(new List<Card> { dealerHand.Cards[0] });
                 RenderHiddenCard();
             }
             else
@@ -186,7 +222,7 @@ namespace Bunbarlang
 
         private void RenderCards(List<Card> cards)
         {
-            if (cards.Count == 0) return;
+            if (cards is null || cards.Count == 0) return;
 
             var sprites = cards.Select(BuildCardSprite).ToList();
 
